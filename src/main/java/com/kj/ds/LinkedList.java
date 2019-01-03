@@ -6,15 +6,19 @@ package com.kj.ds;
  */
 public class LinkedList
 {
-    Node head;
-    Node tail;
-
+    private Node head;
+    private Node tail;
+    private int size = 0;
     class Node {
         Node next;
         Object data;
         Node(Object d)
         {
             data = d;
+        }
+        public String toString()
+        {
+            return "Node :" + data.toString();
         }
     }
 
@@ -29,34 +33,45 @@ public class LinkedList
         else
         {
             tail.next = n;
+            tail = n;
         }
-
+        size ++;
     }
 
     public boolean remove(Object d)
     {
         Node n = head;
-        while( n.next != null) {
-            Node c = n.next;
-            if (d.equals(c.data))
+        Node p = null;
+        while( n!= null) {
+            if (d.equals(n.data))
             {
-                n.next = c.next;
+                if ( p != null)
+                    p.next = n.next;
+                else
+                    head = n.next;
+                size --;
+                if (size <= 1) tail = head;
                 return true;
             }
-            n = c;
+            p = n;
+            n = n.next;
         }
         return false;
+    }
+
+    public int size()
+    {
+        return size;
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder("[");
         Node n = head;
-        while( n.next != null) {
-            Node c = n.next;
-            n = c;
-            s.append(c.data.toString());
-            if (c.next != null)
+        while( n != null) {
+            s.append(n.data.toString());
+            if (n.next != null)
                 s.append(",");
+            n = n.next;
         }
         s.append("]");
         return s.toString();

@@ -18,11 +18,29 @@ public class LinkedListTest extends TestCase
         return new TestSuite(LinkedListTest.class);
     }
 
-    public void testLinkedList()
+    private LinkedList init (int size)
     {
         LinkedList l = new LinkedList();
-        l.add("1");
-        System.out.println(l);
-        assertTrue(true);
+        for(int i=1; i<= size; i++)
+            l.add("" + i);
+        return l;
+    }
+    public void testAdd()
+    {
+        LinkedList l = init(2);
+        assertTrue(l.size() == 2);
+        assertTrue(l.toString().equals("[1,2]"));
+    }
+
+    public void testRemove()
+    {
+        LinkedList l = init(2);
+        l.remove("1");
+        assertTrue(l.size() == 1);
+        assertTrue(l.toString().equals("[2]"));
+        l.remove("2");
+        assertTrue(l.size() == 0);
+        assertTrue(l.toString().equals("[]"));
+
     }
 }
